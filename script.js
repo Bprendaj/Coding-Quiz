@@ -1,161 +1,75 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-// defining the variables for the generator//
-var numberText = "0123456789";
-var lowercaseText = "abcdefghijklmnopqrstuvwxyz";
-var uppercaseText = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var specialText = "!@#$%^&*(){}=+<>?/~`_";
-var lengthChoice
-var uppercaseChoice
-var numberChoice
-var specialChoice
 
-// generating the password prompt //
-function passwordLength() {
-// establishing user prompts (length) - password btwn 8-128 characters //
-  var lengthChoice = prompt (" Input Character length, password must be between 8-128 characters.")
-  lengthChoice = parseInt(lengthChoice);
 
-// generating the correct password length alerts//
-  if (lengthChoice < 8) {
-    alert("Password must be between 8-128 characters");
-   passwordLength ();
-  }
+// Creating the Arrays of Character Choices
+var upperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+var lowerCase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+var numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+var special = ['@', '%', '!', '?', '/', "'", '(', ')', '+', '=', '{', '}', ':', ';', '_', '-'];
 
-  else if (lengthChoice > 128) {
-    alert("Password must be between 8-128 characters");
-    passwordLength ();
-  }
 
-  else if (isNaN(lengthChoice)) {
-    alert ("Please choose a number between 8-128 for password length")
-    passwordLength ();
-  }
+// creating the function to prompt the user with options for password criteria
+function criteria () {
+  var isValid = false;
+    do {
+      var length = prompt("Enter a desired password length between 8 and 128 characters");
+      var askUpper = confirm("Would you like to include uppercase letters in your password?");
+      var askLower = confirm("Would you like to include lowercase letters in your password?");
+      var askNumber = confirm("Would you like to include numbers in your password?");
+      var askSpecial = confirm ("Would you like to include special characters in your password?");
 
-  else {
-    return lengthChoice;
-  }
+      if ((length < 8)|| (length > 128))
+        alert ("Please enter a password length between 8 and 128 characters");
+      else if ((!askUpper)&&(!askLower)&&(!askNumber)&&(!askSpecial))
+        alert("Please select at least one of the prompted character types");
+      else 
+       isValid = true;
+      }
+    while(!isValid);
+    return answers;
 }
 
-// establising user prompts (upper/lowercase)
-function passwordUpper (){
-  uppercaseChoice = prompt ("Would you like to include upper case letters in your password? ")
-    uppercaseChoice = uppercaseChoice.toLowerCase();
+function generatePassword() {
+  var passwordOptions = criteria();
+  var posCombination = [];
+  var displayPass = "";
 
-// generating the correct alerts and choice setttings   
-  if (uppercaseChoice === "yes"){
-    uppercaseChoice = true;
-    return uppercaseChoice;
+  if(askLower === true) {
+    for (var i = 0; i < lowerCase.length; i++) {
+        posCombination.push(lowerCase[i]);
     }
-
-  else if (uppercaseChoice === "no"){
-    uppercaseChoice = false;
-    return uppercaseChoice;
+  }
+  if(askUpper === true) {
+    for (var i = 0; i < lowerCase.length; i++) {
+        posCombination.push(lowerCase[i]);
+    }
+  }
+  if(askNumber === true) {
+    for (var i = 0; i < numbers.length; i++) {
+        posCombination.push(numbers[i]);
+    }
+  }
+  if(askSpecial === true) {
+    for (var i = 0; i < special.length; i++) {
+        posCombination.push(special[i]);
+    }
   }
 
-  else {
-    alert ("Please answer yes or no, would you like to include upper case letters in your password?");
-    passwordUpper ();
-  }
-  return uppercaseChoice;
-}
+  console.log(posCombination);
 
-// creating the function to include numbers in the password
-function passwordNumber (){
-  numberChoice = prompt (" Would you like to include numbers in your password?");
-    numberChoice = numberChoice.toLowerCase ();
-// generating the correct alerts and choice settings
-    if (numberChoice === "yes"){
-    numberChoice = true;
-    return numberChoice;
+    for(var i = 0; i < passwordOptions.length; i++){
+      displayPass += posCombination.charAt(Math.floor(Math.random() * posCombination.length));
     }
 
-    else if (numberChoice === "no"){
-    numberChoice = false;
-    return numberChoice;
-    }
+    console.log(displayPass);
 
-    else {
-      alert ("Please answer yes or no, would you like to include numbers in your password?");
-      passwordNumber ();
-    }
-
-    return numberChoice;
-}
-
-// creating function to include special characters in the password 
-function passwordSpecial (){
-  specialChoice = prompt (" Would you like to include special characters in your password?");
-    specialChoice = specialChoice.toLowerCase ();
-// generating the correct alerts and choice settings
-    if (specialChoice === "yes"){
-    specialChoice = true;
-    return specialChoice;
-    }
-
-    else if (specialChoice === "no"){
-    specialChoice = false;
-    return specialChoice;
-    }
-
-    else {
-      alert ("Please answer yes or no, would you like to include special characters in your password?");
-      passwordSpecial ();
-    }
-    return specialChoice;
-}
-
-//taking the fuctions from each "if/else" case and creating a password using a random number generator
-function generatePassword (){
-  passwordLength ();
-  console.log(lengthChoice);
-  passwordUpper ();
-  console.log(uppercaseChoice);
-  passwordNumber ();
-  console.log(numberChoice);
-  passwordSpecial ();
-  console.log(specialChoice);
-
-  //setting the combinations of texts
-  var characters = lowercaseText;
-  var password = "";
-  if (uppercaseChoice && numberChoice && specialChoice){
-    characters += uppercaseText + numberText + specialText;
-
-  }else if (uppercaseChoice && specialChoice){
-    characters += uppercaseText + specialText;
-  
-  }else if (numberChoice && specialChoice){
-    characters += numberText + specialText;
-
-  }else if (uppercaseChoice && numberChoice){
-    characters += uppercaseText + numberText;
-
-  }else if (uppercaseChoice){
-    characters += uppercaseText;
-  
-  }else if(numberChoice){
-    characters += numberText;
-  
-  }else if (specialChoice){
-    characters += specialText;
-  
-  }else{
-    characters === lowercaseText;
-  }
-  
-    for(var i = 0; i < passwordLength; i++){
-      password += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return password;
+    return displayPass;
   }
 
 // Write password to the #password input + including the funtions from each "if" case
 function writePassword() {
-  var password = passwordLength();
-  var password = passwordUpper ();
-  var password = passwordNumber ();
-  var password = passwordSpecial ();
+  var password = generatePassword ();
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
 

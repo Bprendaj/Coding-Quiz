@@ -1,26 +1,21 @@
-# challenge-3
+## Challenge-3
 Password Generator 
+# Description 
+This challenge was provided with a starter code given in the credits section. The user is  prompted by a series of questions, depending on the answer - the code will generate a random passowrd given the criteria. 
 
-GIVEN I need a new, secure password
+# Goal 
+The client has access to sensitve data and wants a randomly generated password that can ensure strong security
 
-WHEN I click the button to generate a password
-THEN I am presented with a series of prompts for password criteria
+# Scope of Work 
+1. The User will be prompted with questions regarding the following criteria and has the opportunity to select their Password options. 
+ * Criteria:
+    * Must be between 8 and 128 characters long
+    * Must choose at least one of the following characteristics:
+        * Uppercase
+        * Lowercase
+        * Numbers
+        * Special Characters
 
-WHEN prompted for password criteria
-THEN I select which criteria to include in the password
-
-WHEN prompted for the length of the password
-THEN I choose a length of at least 8 characters and no more than 128 characters
-
-WHEN prompted for character types to include in the password
-THEN I choose lowercase, uppercase, numeric, and/or special characters
-
-WHEN I answer each prompt
-THEN my input should be validated and at least one character type should be selected
-
-WHEN all prompts are answered
-THEN a password is generated that matches the selected criteria
-
-WHEN the password is generated
-THEN the password is either displayed in an alert or written to the page
-
+# Requirements
+1. Kept the original graphics of the website: 
+2. User was promoted to answer criteria:
